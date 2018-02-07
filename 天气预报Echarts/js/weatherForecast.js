@@ -1,8 +1,8 @@
-var log = console.log.bind(console)
+const log = console.log.bind(console)
 
-var e = (selector) => document.querySelector(selector)
+const e = (selector) => document.querySelector(selector)
 
-var ajax = function(request) {
+const ajax = function(request) {
     var r = new XMLHttpRequest()
     r.open(request.method, request.url, true)
     if (request.contentType != undefined) {
@@ -20,9 +20,9 @@ var ajax = function(request) {
     }
 }
 
-var requestWeather = (callback) => {
-    var url = 'https://free-api.heweather.com/v5/forecast?city=qingdao&key=9041c70d00d947f5a3ce254c06c0cfa2'
-    var request = {
+const requestWeather = (callback) => {
+    let url = 'https://free-api.heweather.com/v5/forecast?city=qingdao&key=9041c70d00d947f5a3ce254c06c0cfa2'
+    let request = {
         method: 'GET',
         url: url,
         callback : (data) => {
@@ -33,24 +33,24 @@ var requestWeather = (callback) => {
     ajax(request)
 }
 
-var configuredChart = function() {
-    var element = e('#id-div-chart')
-    var chart = echarts.init(element)
+const configuredChart = function() {
+    let element = e('#id-div-chart')
+    let chart = echarts.init(element)
     return chart
 }
 
-var temperature = function(weather) {
-    var w = {
+const temperature = function(weather) {
+    let w = {
         date: [],
         max: [],
         min: [],
         average: [],
     }
-    var forecast = weather.daily_forecast
+    let forecast = weather.daily_forecast
     for (var i = 0; i < forecast.length; i++) {
-        var f = forecast[i]
-        var t = f.tmp
-        var a = (Number(t.max) + Number(t.min)) / 2
+        let f = forecast[i]
+        let t = f.tmp
+        let a = (Number(t.max) + Number(t.min)) / 2
 
         w.max.push(t.max)
         w.min.push(t.min)
@@ -61,9 +61,9 @@ var temperature = function(weather) {
 }
 
 // 指定图表的配置项和数据
-var formattedWeather = function(weather) {
-    var data = temperature(weather)
-    var option = {
+const formattedWeather = function(weather) {
+    let data = temperature(weather)
+    let option = {
         title: {
             text: '未来三天青岛气温变化',
         },
@@ -167,14 +167,14 @@ var formattedWeather = function(weather) {
 }
 
 // 使用刚指定的配置项和数据显示图表。
-var renderChart = function(data) {
+const renderChart = function(data) {
     var weather = data.HeWeather5[0]
     var chart = configuredChart()
     var weather = formattedWeather(weather)
 
     chart.setOption(weather)
 }
-var __main = function() {
+const __main = function() {
     // 使用 fetchWeather 函数来获取数据, 通过 ajax 获取数据是一个异步过程
     // 所以后面的逻辑要放在回调函数中
     requestWeather(renderChart)
