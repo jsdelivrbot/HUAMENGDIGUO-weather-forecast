@@ -103,7 +103,7 @@ var formattedWeather = function(weather) {
             {
                 type: 'value',
                 name: '温度',
-                min: -4,
+                min: -8,
                 max: 8,
                 interval: 4,
                 position: 'right',
